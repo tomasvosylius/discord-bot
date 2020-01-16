@@ -15,7 +15,7 @@ messages             = {
         f"Norėdamas tapti patvirtintu nariu, pirmiausia turi būti registruotas serveryje adresu `{samp_server_ip}`\n"
         "Žemiau parašyk savo __žaidimo Vardą_Pavardę__ ir lauk **patvirtinimo**",
     "welcome_global" : 
-        "Labas, {0}! 🎉\nSveikiname prisijungus prie mūsų serverio!",
+        f"Labas, __{0}__! 🎉\nSveikiname prisijungus prie {server_name} serverio!",
 }
 
 def read_token():
@@ -35,10 +35,6 @@ def get_channel_by_name(name):
             return channel
     return None
 
-async def greet_user(user):
-    username, sep, tail = user.partition("#")
-    await gen_channel.send(messages["welcome_global"].format(username))
-
 
 if __name__ == "__main__":
     print("Starting bot.py!")
@@ -56,11 +52,13 @@ if __name__ == "__main__":
         gen_channel = get_channel_by_name(general_channel_name)
         if gen_channel == None:
             print("Error when looking for channel")
+        else:
+            print("General channel was found")
 
     @client.event 
     async def on_member_join(member):
         print(f"{str(member)} just joined the server.")
-        
+    
         if gen_channel != None:
             # send the message to general channel
             await greet_user(member)
@@ -81,7 +79,7 @@ if __name__ == "__main__":
             return # ignore the bot itself
 
         if message.content.startswith("!greetme"):
-            greet_user(message.author)
+            await message.channel.send(messages["welcome_global"].format(message.author.display_name))
 
         if message.content.startswith("!dmme"):
             dm = await message.author.create_dm()
