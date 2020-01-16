@@ -7,7 +7,7 @@ Installing
     python3 -m pip install -U discord.py
 
     # Windows
-    py -3 -m pip install -U discord.py```
+    py -3 -m pip install -U discord.py
 
 Running the bot 
 ----------
