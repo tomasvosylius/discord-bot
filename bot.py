@@ -33,8 +33,8 @@ if __name__ == "__main__":
         if message.author == client.user:
             return
 
-        if message.content.startwith == "!verify":
-            message.channel.send("you wish") # send message back to the channel where command was used
+        if message.content.startwith == "!ping":
+            message.channel.send("pong") # send message back to the channel where command was used
             
 
     client.run(token)
