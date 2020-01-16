@@ -20,10 +20,6 @@ if __name__ == "__main__":
     client = discord.Client()
     print("Running the client now...")
 
-    @client.event 
-    async def funcname(parameter_list):
-        pass
-
     @client.event
     async def on_ready():
         print(f"Logged in!")
