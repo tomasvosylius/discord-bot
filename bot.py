@@ -29,8 +29,8 @@ if __name__ == "__main__":
         if message.author == client.user:
             return
 
-        if message.content.startwith == "!ping":
-            message.channel.send("pong") # send message back to the channel where command was used
+        if message.content.startswith("!ping"):
+            await message.channel.send("pong") # send message back to the channel where command was used
             
 
     client.run(token)
