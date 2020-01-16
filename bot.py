@@ -1,3 +1,7 @@
+# bot.py 
+# http://github.com/tomasvosylius/discord-bot
+# using discord.py
+
 import discord
 
 token_file = "token.txt"
@@ -30,7 +34,7 @@ if __name__ == "__main__":
             return
 
         if message.content.startwith == "!verify":
-            
+            message.channel.send("you wish") # send message back to the channel where command was used
             
 
     client.run(token)
