@@ -11,11 +11,11 @@ samp_server_ip       = "samp.realstate.lt:7777"
 messages             = {
     # message used for DM when new user joins
     "verification_message" : 
-        f"Sveikiname prisijungus prie {server_name}!\n"
+        f"Sveikiname prisijungus prie {server_name}! :partying_face:\n"
         f"Norėdamas tapti patvirtintu nariu, pirmiausia turi būti registruotas serveryje adresu `{samp_server_ip}`\n"
         "Žemiau parašyk savo __žaidimo Vardą_Pavardę__ ir lauk **patvirtinimo**",
     "welcome_global" : 
-        f"Labas, __{0}__! 🎉\nSveikiname prisijungus prie {server_name} serverio!",
+        "Labas, __{0}__! :wave: :tada:\nSveikiname prisijungus prie {1} serverio!",
 }
 
 def read_token():
@@ -55,13 +55,13 @@ if __name__ == "__main__":
         else:
             print("General channel was found")
 
-    @client.event 
+    @client.event
     async def on_member_join(member):
         print(f"{str(member)} just joined the server.")
     
         if gen_channel != None:
             # send the message to general channel
-            await greet_user(member)
+            await greet_member(gen_channel, message.author)
 
         # message the user
         dm = await member.create_dm()
@@ -79,10 +79,14 @@ if __name__ == "__main__":
             return # ignore the bot itself
 
         if message.content.startswith("!greetme"):
-            await message.channel.send(messages["welcome_global"].format(message.author.display_name))
+            await greet_member(message.channel, message.author)
+            # message.channel.send(messages["welcome_global"].format(message.author.display_name, server_name))
 
         if message.content.startswith("!dmme"):
             dm = await message.author.create_dm()
             await dm.send(messages['verification_message'])
+
+    async def greet_member(channel, member):
+        await channel.send(messages["welcome_global"].format(member.display_name, server_name))
 
     client.run(token)
